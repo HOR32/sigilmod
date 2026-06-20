@@ -1,4 +1,4 @@
-package com.sickasian.megicshitmod;
+package com.sickasian.magicshitmod;
 
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;

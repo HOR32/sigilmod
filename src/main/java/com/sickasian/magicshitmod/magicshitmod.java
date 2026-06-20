@@ -1,6 +1,7 @@
-package com.sickasian.megicshitmod;
+package com.sickasian.magicshitmod;
 
 import com.mojang.logging.LogUtils;
+import com.sickasian.magicshitmod.ModItems.ModItems;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.food.FoodProperties;
@@ -36,14 +37,17 @@ public final class magicshitmod {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, MODID);
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MODID);
 
+    // Example block (optional - remove if you don't need it)
     public static final RegistryObject<Block> EXAMPLE_BLOCK = BLOCKS.register("example_block",
             () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.STONE))
     );
 
+    // Example block item (optional - remove if you don't need it)
     public static final RegistryObject<Item> EXAMPLE_BLOCK_ITEM = ITEMS.register("example_block",
             () -> new BlockItem(EXAMPLE_BLOCK.get(), new Item.Properties())
     );
 
+    // Example item (optional - remove if you don't need it)
     public static final RegistryObject<Item> EXAMPLE_ITEM = ITEMS.register("example_item",
             () -> new Item(new Item.Properties()
                     .food(new FoodProperties.Builder()
@@ -55,25 +59,33 @@ public final class magicshitmod {
             )
     );
 
+    // Creative tab (optional - remove if you don't need it)
     public static final RegistryObject<CreativeModeTab> EXAMPLE_TAB = CREATIVE_MODE_TABS.register("example_tab",
             () -> CreativeModeTab.builder()
                     .withTabsBefore(CreativeModeTabs.COMBAT)
                     .icon(() -> EXAMPLE_ITEM.get().getDefaultInstance())
                     .displayItems((parameters, output) -> {
                         output.accept(EXAMPLE_ITEM.get());
+                        output.accept(ModItems.SPEL1.get());  // ← ADD SPEL1 TO CREATIVE TAB
                     }).build()
     );
 
     public magicshitmod() {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
-        modEventBus.addListener(this::commonSetup);
-        modEventBus.addListener(magicshitmod::addCreative);
+        // Register SPEL1 from ModItems class
+        ModItems.register(modEventBus);
 
+        // Register blocks, items, and creative tabs from this class
         BLOCKS.register(modEventBus);
         ITEMS.register(modEventBus);
         CREATIVE_MODE_TABS.register(modEventBus);
 
+        // Register event listeners
+        modEventBus.addListener(this::commonSetup);
+        modEventBus.addListener(this::addCreative);
+
+        // Register config
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.SPEC);
     }
 
@@ -88,9 +100,13 @@ public final class magicshitmod {
         Config.items.forEach((item) -> LOGGER.info("ITEM >> {}", item.toString()));
     }
 
-    private static void addCreative(BuildCreativeModeTabContentsEvent event) {
-        if (event.getTabKey() == CreativeModeTabs.BUILDING_BLOCKS)
-            event.accept(EXAMPLE_BLOCK_ITEM);
+    private void addCreative(BuildCreativeModeTabContentsEvent event) {
+        // Add SPEL1 to the combat tab
+        if (event.getTabKey() == CreativeModeTabs.COMBAT) {
+            event.accept(ModItems.SPEL1.get());
+            event.accept(ModItems.FIREBALL.get());
+            event.accept(ModItems.EARTHBALL.get());
+        }
     }
 
     @Mod.EventBusSubscriber(modid = MODID, value = Dist.CLIENT)

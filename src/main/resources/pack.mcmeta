@@ -1,10 +1,6 @@
 {
   "pack": {
-    "description": "${mod_id} resources",
-    "max_format": 101,
-    "min_format": [
-      101,
-      1
-    ]
+    "description": "magicshitmod resources",
+    "pack_format": 15
   }
 }
