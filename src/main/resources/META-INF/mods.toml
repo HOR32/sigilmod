@@ -1,0 +1,24 @@
+modLoader="javafml"
+loaderVersion="[47,)"
+license="All Rights Reserved"
+
+[[mods]]
+modId="magicshitmod"
+version="1.0.0"
+displayName="magic shit mod"
+authors="hor32, gorgons"
+description='''A magic mod with custom items.'''
+
+[[dependencies.magicshitmod]]
+modId="forge"
+mandatory=true
+versionRange="[47,48)"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.magicshitmod]]
+modId="minecraft"
+mandatory=true
+versionRange="[1.20.1,1.20.2)"
+ordering="NONE"
+side="BOTH"
