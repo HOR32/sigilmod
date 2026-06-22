@@ -1,4 +1,4 @@
-package com.sickasian.magicshitmod.ModItems.custom;
+package com.sickasian.magicshitmod.hud;
 
 import com.sickasian.magicshitmod.ModItems.custom.SpelBookItem;
 import net.minecraft.client.gui.GuiGraphics;

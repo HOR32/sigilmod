@@ -1,5 +1,6 @@
 package com.sickasian.magicshitmod.ModItems.custom;
 
+import com.sickasian.magicshitmod.hud.SelectScreen;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.Mth;
@@ -14,6 +15,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseFireBlock;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.AABB;
+import com.sickasian.magicshitmod.PlayerMana;
 
 public class SpelBookItem extends Item {
 
@@ -39,7 +41,7 @@ public class SpelBookItem extends Item {
             case 0 -> castFire(target);
             case 1 -> castIce(target);
         }
-
+        PlayerMana.mana -= 10;
         return super.hurtEnemy(stack, target, attacker);
     }
 
